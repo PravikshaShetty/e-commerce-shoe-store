@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoe Store</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f4f2;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #4b2c2c;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    header span {
+      color: #ff3366;
+    }
+    .brand-section {
+      margin: 40px;
+    }
+    .brand-section h2 {
+      color: #4b2c2c;
+      border-bottom: 2px solid #ff3366;
+      padding-bottom: 5px;
+    }
+    .shoe-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .shoe-card {
+      background: white;
+      border: 2px solid #ff80a6;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .shoe-card:hover {
+      transform: translateY(-4px);
+    }
+    .shoe-card img {
+      width: 220px;
+      height: auto;
+      display: block;
+      margin: auto;
+    }
+    .price {
+      color: #444;
+      font-size: 16px;
+    }
+    .discount {
+      color: #ff3366;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    button {
+      background: #ff4d80;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    button:hover {
+      background: #e63e70;
+    }
+    /* Login/Register Form */
+    #authSection {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    #authSection input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    #authSection h2 {
+      color: #4b2c2c;
+    }
+    #logoutBtn {
+      background: #444;
+      margin-left: 10px;
+    }
+    /* Cart Section */
+    #cart {
+      background: #fff;
+      border-top: 3px solid #ff3366;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Branded Shoe <span>Discount Store</span>
+    <div id="userGreeting" style="margin-top:10px; font-size:18px;"></div>
+  </header>
+
+  <!-- Login / Register Section -->
+  <div id="authSection">
+    <h2>Login / Register</h2>
+    <input type="text" id="name" placeholder="Name" required><br>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button onclick="registerUser()">Register</button>
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+  <!-- Store Content (Hidden until login) -->
+  <div id="storeContent" style="display:none;">
+    <!-- Nike -->
+    <div class="brand-section">
+      <h2>Nike</h2>
+      <div class="shoe-container">
+        <div class="shoe-card">
+          <img src="https://static.nike.com/a/images/t_default/00f6630d-03ef-4ab3-b6c4-494cfca5c6f3/air-max-90-shoes.png" alt="Nike Air Max">
+          <h3>Nike Air Max</h3>
+          <p class="price"><span style="text-decoration: line-through;">₹12,000</span> <span class="discount">₹9,499</span></p>
+          <button onclick="addToCart('Nike Air Max', 9499)">Add to Cart</button>
+        </div>
+        <div class="shoe-card">
+          <img src="https://static.nike.com/a/images/t_default/9f9e2ef3-4e36-4b65-85a6-1a8f8459b5a2/air-force-1-07-shoes.png" alt="Nike Air Force 1">
+          <h3>Nike Air Force 1</h3>
+          <p class="price"><span style="text-decoration: line-through;">₹10,500</span> <span class="discount">₹8,299</span></p>
+          <button onclick="addToCart('Nike Air Force 1', 8299)">Add to Cart</button>
+        </div>
+        <div class="shoe-card">
+          <img src="https://static.nike.com/a/images/t_default/0e82aa9d-00c5-4f26-8b46-d61c13800c81/revolution-6-road-running-shoes.png" alt="Nike Revolution">
+          <h3>Nike Revolution</h3>
+          <p class="price"><span style="text-decoration: line-through;">₹6,500</span> <span class="discount">₹4,999</span></p>
+          <button onclick="addToCart('Nike Revolution', 4999)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+ <!-- Puma -->
+  <div class="brand-section">
+    <h2>Puma</h2>
+    <div class="shoe-container">
+      <div class="shoe-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa/global/392495/02/sv01/fnd/IND/w/1000/h/1000/fmt/png" alt="Puma Palermo">
+        <h3>Puma Palermo</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹7,999</span> <span class="discount">₹5,799</span></p>
+      <button onclick="addToCart('Puma Palermo', 5799)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto/global/390935/01/sv01/fnd/IND/w/1000/h/1000/fmt/png" alt="Puma Smash">
+        <h3>Puma Smash</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹5,500</span> <span class="discount">₹4,299</span></p>
+        <button onclick="addToCart('Puma Smashic', 4299)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto/global/376682/02/sv01/fnd/IND/w/1000/h/1000/fmt/png" alt="Puma X-Ray">
+        <h3>Puma X-Ray</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹6,800</span> <span class="discount">₹5,299</span></p>
+        <button onclick="addToCart('Puma X-Ray', 5299)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Adidas -->
+  <div class="brand-section">
+    <h2>Adidas</h2>
+    <div class="shoe-container">
+      <div class="shoe-card">
+        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/8b42e8dd5c06417b962dad1f017a6f27_9366/Ultraboost_Light_Shoes_White_GY9351_01_standard.jpg" alt="Adidas Ultraboost">
+        <h3>Adidas Ultraboost</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹15,000</span> <span class="discount">₹11,999</span></p>
+      <button onclick="addToCart('Adidas Ultra Boost', 11999)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/84dd04fba62d4a41ad37afb50148d7f2_9366/Grand_Court_Base_2.0_Shoes_White_ID2551_01_standard.jpg" alt="Adidas Grand Court">
+        <h3>Adidas Grand Court</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹8,500</span> <span class="discount">₹6,499</span></p>
+        <button onclick="addToCart('Adidas Grand Court', 6499)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/0e26b68fcf894b3c94b8ae350107cf23_9366/Duramo_SL_Shoes_Black_GW8336_01_standard.jpg" alt="Adidas Duramo">
+        <h3>Adidas Duramo</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹6,000</span> <span class="discount">₹4,599</span></p>
+        <button onclick="addToCart('Adidas Duramo', 4599)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Converse -->
+  <div class="brand-section">
+    <h2>Converse</h2>
+    <div class="shoe-container">
+      <div class="shoe-card">
+        <img src="https://www.converse.in/media/catalog/product/m/9/m9166c_a_107x1.jpg" alt="Converse Chuck Taylor">
+        <h3>Converse Chuck Taylor</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹6,500</span> <span class="discount">₹5,199</span></p>
+        <button onclick="addToCart('Converse Chuck Taylor', 5199)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://www.converse.in/media/catalog/product/m/9/m9697c_a_107x1.jpg" alt="Converse All Star High">
+        <h3>Converse All Star High</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹6,800</span> <span class="discount">₹5,299</span></p>
+        <button onclick="addToCart('Converse All Star High', 5299)">Add to Cart</button>
+      </div>
+      <div class="shoe-card">
+        <img src="https://www.converse.in/media/catalog/product/1/7/171546c_a_107x1.jpg" alt="Converse Run Star Hike">
+        <h3>Converse Run Star Hike</h3>
+        <p class="price"><span style="text-decoration: line-through;">₹9,500</span> <span class="discount">₹7,999</span></p>
+        <button onclick="addToCart('Converse Run Star Hike', 7999)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Cart Section -->
+    <div id="cart">
+      <h2>🛒 Your Cart</h2>
+      <ul id="cartItems">
+        <li>No items added yet.</li>
+      </ul>
+      <p id="total">Total: ₹0</p>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+    let registeredUsers = []; 
+    let currentUser = null;
+
+    function registerUser() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!name || !email || !password) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      // check duplicate email
+      if (registeredUsers.find(u => u.email === email)) {
+        alert("User already registered. Please login.");
+        return;
+      }
+
+      registeredUsers.push({ name, email, password });
+      alert("Registration successful! Please login.");
+    }
+
+    function loginUser() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const user = registeredUsers.find(u => u.email === email && u.password === password);
+      if (user) {
+        currentUser = user;
+        document.getElementById("authSection").style.display = "none";
+        document.getElementById("storeContent").style.display = "block";
+        document.getElementById("userGreeting").innerHTML = 
+          `Welcome, ${user.name}! <button id="logoutBtn" onclick="logoutUser()">Logout</button>`;
+      } else {
+        alert("Invalid email or password.");
+      }
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      cart = [];
+      total = 0;
+      document.getElementById("authSection").style.display = "block";
+      document.getElementById("storeContent").style.display = "none";
+      document.getElementById("userGreeting").innerHTML = "";
+    }
+
+    function addToCart(product, price) {
+      if (cart.length === 0) {
+        document.getElementById("cartItems").innerHTML = "";
+      }
+
+      cart.push({ product, price });
+      total += price;
+
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+      total -= cart[index].price;
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      let cartList = document.getElementById("cartItems");
+      cartList.innerHTML = "";
+
+      cart.forEach((item, index) => {
+        let li = document.createElement("li");
+        li.innerHTML = `${item.product} - ₹${item.price} 
+          <button onclick="removeFromCart(${index})">Remove</button>`;
+        cartList.appendChild(li);
+      });
+
+      if (cart.length === 0) {
+        cartList.innerHTML = "<li>No items added yet.</li>";
+      }
+
+      document.getElementById("total").innerText = "Total: ₹" + total;
+    }
+  </script>
+
+</body>
+</html>
